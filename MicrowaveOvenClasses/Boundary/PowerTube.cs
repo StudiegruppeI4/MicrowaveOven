@@ -6,7 +6,6 @@ namespace MicrowaveOvenClasses.Boundary
     public class PowerTube : IPowerTube
     {
         private IOutput myOutput;
-
         private bool IsOn = false;
 
         public PowerTube(IOutput output)
@@ -16,6 +15,7 @@ namespace MicrowaveOvenClasses.Boundary
 
         public void TurnOn(int power)
         {
+            // TODO: Fejl i power range?
             if (power < 1 || 100 < power)
             {
                 throw new ArgumentOutOfRangeException("power", power, "Must be between 1 and 100 (incl.)");
