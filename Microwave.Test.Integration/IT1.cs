@@ -20,7 +20,6 @@ namespace Microwave.Test.Integration
         private IDisplay display;
         private IOutput output;
 
-
         [SetUp]
         public void Setup()
         {
@@ -68,6 +67,22 @@ namespace Microwave.Test.Integration
             uut.StartCooking(50, 1200);
             Thread.Sleep(500);
             output.DidNotReceive().OutputLine("PowerTube turned off");
+        }
+
+        [Test]
+        public void OnTimerTickDisplayOutputsRightTimeSeconds()
+        {
+            uut.StartCooking(50, 2000);
+            Thread.Sleep(2000);
+            output.Received(1).OutputLine("Display shows: 00:01");
+        }
+
+        [Test]
+        public void OnTimerTickDisplayOutputsRightTimeMinutesAndSeconds()
+        {
+            uut.StartCooking(50, 73000);
+            Thread.Sleep(2000);
+            output.Received(1).OutputLine("Display shows: 01:12");
         }
     }
 }
